@@ -1,6 +1,6 @@
 # Solar AI Assistant  
 
-An AI-powered chatbot providing expert insights on solar energy using OpenRouter API.
+Solar AI Assistant is an AI-powered chatbot that provides expert insights on solar energy using Gemini Flash Lite 2.0 (Free) via OpenRouter API. It helps users with solar panel technology, installation, maintenance, cost analysis, industry regulations, and market trends through an interactive Streamlit-based interface. 🚀
 
 ---
 
