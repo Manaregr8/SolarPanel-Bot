@@ -4,32 +4,27 @@ import json
 import os
 from dotenv import load_dotenv
 
+# Load environment variables
 load_dotenv()
 API_KEY = os.getenv("OPENROUTER_API_KEY")
 
 st.set_page_config(page_title="Solar AI Assistant", page_icon="☀️", layout="wide")
 
+# Custom styling
 st.markdown(
     """
     <style>
-        /* Set max-width for the main content */
         .block-container {
             max-width: 1300px;
             width: 100%;
             margin: auto;
         }
-        
-        /* Change the font */
         html, body, .stApp {
             font-family: 'Poppins', sans-serif;
         }
-
-        /* Style the input box */
         .stTextInput > div > div > input {
             border-radius: 8px;
         }
-
-        /* Style buttons */
         .stButton>button {
             background-color: #0077b6 !important;
             color: white !important;
@@ -48,8 +43,7 @@ st.markdown(
 st.title("🌞 Solar AI Assistant")
 st.subheader("💡 Get expert insights on solar energy!")
 
-user_query = st.text_input("Ask me anything about solar energy...", "")
-
+# Function to call OpenRouter API
 def get_solar_advice(query):
     if not API_KEY:
         return "❌ API key missing! Please set up your .env file."
@@ -81,10 +75,15 @@ def get_solar_advice(query):
     except Exception as e:
         return f"⚠️ Error: {e}"
 
-if st.button("🔍 Get Answer"):
-    if user_query:
-        answer = get_solar_advice(user_query)
-        st.write("### ⚡ Response:")
-        st.write(answer)
-    else:
-        st.warning("Please enter a question!")
+# Use a form to allow "Enter" key submission
+with st.form(key="solar_form"):
+    user_query = st.text_input("Ask me anything about solar energy...", "")
+    submit_button = st.form_submit_button("🔍 Get Answer")
+
+# If Enter is pressed or button is clicked, fetch response
+if submit_button and user_query:
+    answer = get_solar_advice(user_query)
+    st.write("### ⚡ Response:")
+    st.write(answer)
+elif submit_button:
+    st.warning("Please enter a question!")
